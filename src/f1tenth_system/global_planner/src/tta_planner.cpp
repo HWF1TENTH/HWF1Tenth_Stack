@@ -40,23 +40,27 @@ std::vector<BoundaryPoint> TTAPlanner::preprocessBoundaries(
     std::cerr << "Boundary has too few points to preprocess." << std::endl;
     return boundary;
   }
+
   std::vector<BoundaryPoint> out;
   out.reserve(boundary.size());
+
   for (const auto & p : boundary) {
     bool duplicate = false;
-    for (const auto & q: out) {
+
+    for (const auto & q : out) {
       if (p.x == q.x && p.y == q.y) {
         duplicate = true;
         break;
       }
-      if (!duplicate) {
-        out.push_back(p);
-      }
+    }
+
+    if (!duplicate) {
+      out.push_back(p);
     }
   }
+
   return out;
 }
-
 
 std::vector<BoundaryPoint> TTAPlanner::orderBoundary(
   const std::vector<BoundaryPoint> & boundary)
@@ -145,8 +149,7 @@ std::vector<BoundaryPoint> TTAPlanner::orderLoop(const std::vector<BoundaryPoint
 }
 
 
-std::vector<BoundaryPoint> TTAPlanner::smooth(
-  const std::vector<BoundaryPoint> & ordered)
+std::vector<BoundaryPoint> TTAPlanner::smooth(const std::vector<BoundaryPoint> & ordered)
 {
   if (ordered.size() < 3) {return ordered;}
 
@@ -159,15 +162,22 @@ std::vector<BoundaryPoint> TTAPlanner::smooth(
   return out;
 }
 
+std::vector<BoundaryPoint> TTAPlanner::computeMidpoints(
+  const std::vector<std::pair<BoundaryPoint, BoundaryPoint>> & pairs)
+{
+  std::vector<BoundaryPoint> mids;
+  mids.reserve(pairs.size());
 
-/*
-    Need to implement the following steps:
+  for (const auto & pr : pairs) {
+    const auto & left = pr.first;
+    const auto & right = pr.second;
 
-    preprocessBounderies();
-    left_chain = orderBoundary(left_boundary);
-    right_chain = orderBoundary(right_boundary);
-    pairs = pairBoundaryPoints(left_chain, right_chain);
-    centerline = computeMidpoints(pairs);
-    ordered = oderLoop(centerline);
-    centerline_out = smoot(ordered);
-*/
+    BoundaryPoint mid = left;  // copy left so any extra fields are carried over
+    mid.x = 0.5 * (left.x + right.x);
+    mid.y = 0.5 * (left.y + right.y);
+
+    mids.push_back(mid);
+  }
+
+  return mids;
+}

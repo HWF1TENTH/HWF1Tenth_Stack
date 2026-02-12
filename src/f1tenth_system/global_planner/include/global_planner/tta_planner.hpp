@@ -16,7 +16,6 @@ public:
     std::vector<BoundaryPoint> & centerline
   );
 
-
 private:
   std::vector<BoundaryPoint> preprocessBoundaries(
     const std::vector<BoundaryPoint> & boundary
@@ -44,9 +43,6 @@ private:
   );
 
 };
-
-
-
 
 
 /*
