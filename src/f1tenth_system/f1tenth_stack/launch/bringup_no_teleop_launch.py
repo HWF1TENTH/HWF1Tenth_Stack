@@ -59,7 +59,7 @@ def generate_launch_description():
         default_value=mux_config,
         description='Descriptions for ackermann mux configs')
 
-    ld = LaunchDescription([joy_la, vesc_la, sensors_la, mux_la])
+    ld = LaunchDescription([ vesc_la, sensors_la, mux_la])
 
     ackermann_to_vesc_node = Node(
         package='vesc_ackermann',
