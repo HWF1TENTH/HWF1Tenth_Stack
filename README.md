@@ -19,3 +19,7 @@ This repository contains autonomous racing algorithms developed by students for 
 
 ## License
 MIT License - All algorithms and techniques developed are open-source to benefit the autonomous driving research community
+
+
+
+    

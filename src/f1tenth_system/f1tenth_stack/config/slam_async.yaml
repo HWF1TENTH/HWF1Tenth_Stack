@@ -1,32 +1,37 @@
 slam_toolbox:
-  ros__parameters:
-    # Frames — match your bringup (check with `ros2 run tf2_tools view_frames`)
-    odom_frame: odom                  # or vesc/odom if custom
+  ros__parameters: 
+    odom_frame: odom
     map_frame: map
-    base_frame: base_link             # or ego_racecar/base_link
-    scan_topic: /scan                 # from urg_node
+    base_frame: base_link
+    scan_topic: /scan
+    mode: mapping
 
-    # Mode (override in launch if needed)
-    mode: mapping                     # or localization
+    max_laser_range: 30.0
+    
+#    minimum_travel_distance: 0.005
+#    minimum_travel_heading: 0.01
+#    minimum_time_interval: 0.02
 
-    # Laser params
-    max_laser_range: 30.0             # Hokuyo typical max
-    minimum_travel_distance: 0.2      # Lower for precise tracks
-    minimum_travel_heading: 0.2       # Radians; IMU helps small rotations
+#Extremely aggressive, for testing only
+    minimum_travel_distance: 0.0
+    minimum_travel_heading: 0.0
+    minimum_time_interval: 0.0
 
-    # Loop closure / matcher
-    loop_search_maximum_distance: 5.0 # Smaller for indoor tracks
-    correlation_search_space_resolution: 0.01
+    loop_search_maximum_distance: 10.0
+    correlation_search_space_dimension: 0.8
+    loop_search_minimum_response_coarse: 0.12
 
-    # Solver (Ceres is default/efficient)
     solver_plugin: solver_plugins::CeresSolver
-    ceres_loss_function: HuberLoss    # Robust to outliers (wheel slip)
-
-    # General
+    ceres_loss_function: HuberLoss
     use_scan_matching: true
     use_scan_barycenter: true
-    map_update_interval: 1.0          # Slower saves CPU
-    minimum_time_interval: 0.5
 
-    # Odometry variance (tune if IMU noisy)
-    process_near_zero_variance: true
+    map_update_interval: 0.15
+    scan_queue_size: 60
+
+    tf_buffer_duration: 60.0
+    transform_tolerance: 0.5
+    transform_publish_period: 0.01
+
+    debug_logging: true
+    enable_interactive_mode: true

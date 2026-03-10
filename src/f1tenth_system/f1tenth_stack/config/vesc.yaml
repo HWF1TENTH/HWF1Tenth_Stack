@@ -9,7 +9,7 @@
     steering_angle_to_servo_gain: -1.2135
     steering_angle_to_servo_offset: 0.5304
 
-    port: /dev/sensors/vesc
+    port: /dev/ttyTHS1
     duty_cycle_min: 0.0
     duty_cycle_max: 0.0
     current_min: 0.0
@@ -27,7 +27,7 @@
 # ackermann_to_vesc_node:
 #   ros__parameters:
 
-vesc_to_odom_node:
+vesc_ackermann/vesc_to_odom_node:
   ros__parameters:
     odom_frame: odom
     base_frame: base_link
@@ -36,6 +36,8 @@ vesc_to_odom_node:
     use_servo_cmd_to_calc_angular_velocity: true
     # car wheelbase is about 25cm
     wheelbase: .25
+    encoder_ticks_per_revolution: 42
+    gear_ratio: 1.0
 
 # No longer needed, all parameters are shared
 # vesc_driver:
