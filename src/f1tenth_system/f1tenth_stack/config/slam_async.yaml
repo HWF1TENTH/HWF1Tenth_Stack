@@ -7,10 +7,12 @@ slam_toolbox:
     mode: mapping
 
     max_laser_range: 30.0
+    
 #    minimum_travel_distance: 0.005
 #    minimum_travel_heading: 0.01
 #    minimum_time_interval: 0.02
 
+#Extremely aggressive, for testing only
     minimum_travel_distance: 0.0
     minimum_travel_heading: 0.0
     minimum_time_interval: 0.0
