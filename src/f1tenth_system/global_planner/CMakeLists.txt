@@ -12,6 +12,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(ackermann_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
 
 if(BUILD_TESTING)
@@ -51,6 +52,26 @@ target_include_directories(planner_node PUBLIC
   $<INSTALL_INTERFACE:include>
 )
 
+add_executable(global_planner_map_node
+  src/global_planner_map_node.cpp
+)
+
+target_link_libraries(global_planner_map_node
+  tta_planner_lib
+)
+
+target_include_directories(global_planner_map_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+ament_target_dependencies(global_planner_map_node
+  rclcpp
+  nav_msgs
+  geometry_msgs
+  visualization_msgs
+)
+
 ament_target_dependencies(planner_node
   rclcpp
   sensor_msgs
@@ -61,6 +82,7 @@ ament_target_dependencies(planner_node
 
 install(TARGETS
   planner_node
+  global_planner_map_node
   tta_planner_lib
   DESTINATION lib/${PROJECT_NAME}
 )

@@ -21,6 +21,7 @@ bool TTAPlanner::computeCenterline(
   auto mid = computeMidpoints(pairs);
 
   auto mid_ordered = orderBoundary(mid);
+  //auto mid_filtered = removeLargeJumps(mid_ordered);
   auto mid_smooth = smooth(mid_ordered);
   centerline_out = orderLoop(mid_smooth);
 
@@ -112,7 +113,7 @@ std::vector<std::pair<BoundaryPoint, BoundaryPoint>> TTAPlanner::pairBoundaryPoi
     return pairs;
   }
   pairs.reserve(left_chain.size());
-  const double max_pair_dist2 = 25.0; //max distance squared to consider a valid pair
+  const double max_pair_dist2 = 9.0;
 
   for (const auto & left_pt : left_chain) {
     size_t best = static_cast<size_t>(-1);
@@ -180,4 +181,31 @@ std::vector<BoundaryPoint> TTAPlanner::computeMidpoints(
   }
 
   return mids;
+}
+
+std::vector<BoundaryPoint> TTAPlanner::removeLargeJumps(
+  const std::vector<BoundaryPoint> & ordered_points)
+{
+  if (ordered_points.size() < 3) {
+    return ordered_points;
+  }
+
+  std::vector<BoundaryPoint> filtered;
+  filtered.reserve(ordered_points.size());
+
+  filtered.push_back(ordered_points[0]);
+
+  const double max_jump_dist2 = 4.0;  
+  // 4.0 = 2m squared
+  // adjust later if needed
+
+  for (size_t i = 1; i < ordered_points.size(); ++i) {
+    double d2 = dist2(filtered.back(), ordered_points[i]);
+
+    if (d2 <= max_jump_dist2) {
+      filtered.push_back(ordered_points[i]);
+    }
+  }
+
+  return filtered;
 }

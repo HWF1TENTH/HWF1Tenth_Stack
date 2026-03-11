@@ -43,16 +43,7 @@ private:
     const std::vector<BoundaryPoint> & ordered_centerline
   );
 
+  std::vector<BoundaryPoint> removeLargeJumps(
+  const std::vector<BoundaryPoint> & ordered_points);
+
 };
-
-
-/*
-preprocessBounderies();
-    left_chain = orderBoundary(left_boundary);
-    right_chain = orderBoundary(right_boundary);
-    pairs = pairBoundaryPoints(left_chain, right_chain);
-    centerline = computeMidpoints(pairs);
-    ordered = oderLoop(centerline);
-    centerline_out = smoot(ordered);
-
-*/
