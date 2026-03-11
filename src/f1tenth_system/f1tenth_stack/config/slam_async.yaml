@@ -8,7 +8,6 @@ slam_toolbox:
 
     max_laser_range: 30.0
     
-<<<<<<< HEAD
     minimum_travel_distance: 0.001
     minimum_travel_heading: 0.005
     minimum_time_interval: 0.01
@@ -17,16 +16,6 @@ slam_toolbox:
 #    minimum_travel_distance: 0.0
 #    minimum_travel_heading: 0.0
 #    minimum_time_interval: 0.0
-=======
-#    minimum_travel_distance: 0.005
-#    minimum_travel_heading: 0.01
-#    minimum_time_interval: 0.02
-
-#Extremely aggressive, for testing only
-    minimum_travel_distance: 0.0
-    minimum_travel_heading: 0.0
-    minimum_time_interval: 0.0
->>>>>>> feature/slam-integration
 
     loop_search_maximum_distance: 10.0
     correlation_search_space_dimension: 0.8
@@ -37,17 +26,15 @@ slam_toolbox:
     use_scan_matching: true
     use_scan_barycenter: true
 
-<<<<<<< HEAD
     map_update_interval: 0.05
     scan_queue_size: 100
 
     tf_buffer_duration: 120.0
-=======
     map_update_interval: 0.1
     scan_queue_size: 80
 
     tf_buffer_duration: 60.0
->>>>>>> feature/slam-integration
+
     transform_tolerance: 1.0
     transform_publish_period: 0.01
 
